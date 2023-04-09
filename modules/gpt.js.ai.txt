@@ -1,0 +1,7 @@
+File Path: modules/gpt.js
+Summary:
+- Imports necessary modules and sets up OpenAI API configuration
+- Defines functions for calling GPT, verifying model, counting tokens, calculating cost, and logging
+- Keeps track of total tokens used, completion tokens, prompt tokens, and cost
+- Logs all GPT calls to a file
+- Exports functions for external use

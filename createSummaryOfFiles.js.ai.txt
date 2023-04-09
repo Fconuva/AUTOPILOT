@@ -1,0 +1,6 @@
+File Path: createSummaryOfFiles.js
+Summary:
+- This file imports several modules including chalk, yargs, fs, path, chokidar, and prompts.
+- It defines functions to calculate the size of a project, process a directory of files, and process an individual file.
+- The main function prompts the user for options and either performs a full analysis of the code files in a directory or watches for file changes and processes modified files.
+- The code uses the GPT model to generate summaries of the processed files and saves them to a new file with the extension ".ai.txt".

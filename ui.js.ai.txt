@@ -1,0 +1,11 @@
+File Path: ui.js
+Summary:
+- UI file for user to input task related to code
+- Uses AI to complete task
+- Reads all .ai.txt files (summaries) in project directory
+- Saves output to .md file in "suggestions" folder
+- Asks user for task input
+- Uses GPT AI API to determine relevant files and context
+- Extracts code from relevant files and sends to GPT for relevant context
+- Sends saved output to GPT for necessary changes to complete task
+- Returns solution and saves to file in "suggestions" folder

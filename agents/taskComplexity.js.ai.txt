@@ -1,0 +1,8 @@
+File Path: agents/taskComplexity.js
+Summary:
+- Function: taskComplexityAgent
+- Uses module: gpt
+- Takes in summaries and a task
+- Generates a prompt with context and response format
+- Calls GPT with prompt and cheap model
+- Returns JSON parsed result
