@@ -41,7 +41,6 @@ Here are the relevant files and code from the existing codebase:
  */
 async function suggestChanges(task, files) {
     const code = formatCode(files)
-    console.log(code)
     const values = {task, code}
     const reply = await callAgent(promptTemplate, values, process.env.ADVANCED_MODEL);
 

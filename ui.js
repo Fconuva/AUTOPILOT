@@ -1,3 +1,4 @@
+
 // This file is the UI for the user. It accepts a TASK from the user and uses AI to complete the task. Tasks are related with code.
 const chalk = require('chalk');
 const { getTaskInput } = require('./modules/userInputs');
@@ -17,9 +18,9 @@ const fs = require('fs');
 @returns {Promise<any>} A Promise that resolves with the return value of the agent function if not in interactive mode, otherwise resolves or rejects based on user input.
 */
 async function runAgent(agentFunction, var1, var2, interactive=false){
+  console.log("(agent)", agentFunction.name);
   if (interactive){
     res = await agentFunction(var1, var2);
-    console.log("(agent)", agentFunction.name);
     console.dir(res, { depth: null })
     const proceed = await prompts({
       type: 'select',

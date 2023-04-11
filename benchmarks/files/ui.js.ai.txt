@@ -1,12 +1,12 @@
-File Path: ui.js
+File Path: benchmarks/files/ui.js
 Summary:
-- UI file for user
-- Accepts TASK from user, uses AI to complete task related to code
-- Validates summaries token count
-- Runs in interactive mode if specified
+- UI file for user to input a TASK related to code
+- Uses AI to complete the task
+- Imports necessary modules and agents
+- Validates token count for summaries
+- Offers interactive mode with agent's reply approval
 - Fetches and validates task
-- Gets relevant files by agent decision
-- Asks agent about each file
-- Extracts relevant code
+- Gets relevant files with agent decision
+- Asks agent about each file and extracts relevant code
 - Sends output to GPT for necessary changes to complete task
-- Saves solution and returns it
+- Saves output and returns solution path
