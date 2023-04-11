@@ -2,7 +2,7 @@
 const chalk = require('chalk');
 const { getTaskInput } = require('./modules/userInputs');
 const { getSummaries, getFiles } = require('./modules/summaries');
-const { saveOutput, logPath } = require('./modules/fsOutput');
+const { logPath } = require('./modules/fsOutput');
 const agents = require('./agents');
 const yargs = require('yargs');
 const prompts = require('prompts');
@@ -82,6 +82,22 @@ async function getTask(task, options){
   return task
 }
 
+function applyPatch(file, patch) {
+  const lines = patch.split("\n");
+  lines.shift();
+  const resCleaned = lines.join("\n")
+    .replace(/^```/, "") // Remove "```" from the start of the string
+    .replace(/```$/, ""); // Remove "```" from the end of the string
+
+  fs.writeFile(file.path, resCleaned, { flag: 'w' }, (err) => {
+    if (err) {
+      console.error(err);
+      throw new Error("Error writing file" + err);
+    }
+    console.log(`The file ${file.path} has been updated.`);
+  });
+}
+
 /**
  * 
  * @param {string} task - The task to be completed.
@@ -99,34 +115,13 @@ async function main(task, test) {
   const files = getFiles(relevantFiles.output.relevantFiles)
   if (files.length == 0) throw new Error("No relevant files found")
 
-  // Ask an agent about each file
-  let solutions = [];
+  // Ask an agent coder to work on each file
   for (const file of files) {
-    const res = await runAgent(agents.coder, task, [file], interactive);
-    const lines = res.split("\n");
-    lines.shift();
-    const resCleaned = lines.join("\n")
-      .replace(/^```/, "") // Remove "```" from the start of the string
-      .replace(/```$/, ""); // Remove "```" from the end of the string
-
-    fs.writeFile(file.path, resCleaned, { flag: 'w' }, (err) => {
-      if (err) {
-        console.error(err);
-        throw new Error("Error writing file" + err);
-      }
-      console.log(`The file ${file.path} has been updated.`);
-    });
-    console.log(`res: ${resCleaned}`);
-    solutions.push(resCleaned)
+    const patch = await runAgent(agents.coder, task, [file], interactive);
+    applyPatch (file, patch)
   }
 
-  //Sends the saved output to GPT and ask for the necessary changes to do the TASK
-  const solutionPath = saveOutput(solutions);
-  
-  console.log(chalk.green("Solution Ready:", solutionPath));
   console.log(chalk.green("Process Log:", logPath()));
-
-  return solutions
 }
 
 if (require.main === module) main();
